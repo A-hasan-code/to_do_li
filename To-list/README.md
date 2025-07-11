@@ -18,20 +18,20 @@ cd to-list
 npm install
 ```
 
-```
+
 
 ### 3. Start Development Server
-```bash
+```
 npm run dev
 ```
 
 ### 4. Build for Production
-```bash
+```
 npm run build
 ```
 
 ### 5. Preview Production Build
-```bash
+```
 npm run preview
 ```
 
