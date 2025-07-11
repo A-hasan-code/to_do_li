@@ -1,6 +1,7 @@
-import { List } from '@mui/material';
+// src/components/TaskList.jsx
+import { List, Typography } from '@mui/material';
 import { useRef } from 'react';
-import TaskItem from './Taskitem';
+import TaskItem from './TaskItem';
 
 const TaskList = ({ tasks, onToggle, onDelete, onEdit, setTasks }) => {
   const dragItem = useRef();
@@ -24,8 +25,12 @@ const TaskList = ({ tasks, onToggle, onDelete, onEdit, setTasks }) => {
     setTasks(copyListItems);
   };
 
+  if (!tasks.length) {
+    return <Typography align="center" color="text.secondary" sx={{ py: 4 }}>No tasks found.</Typography>;
+  }
+
   return (
-    <List>
+    <List sx={{ px: 0 }}>
       {tasks.map((task, index) => (
         <div
           key={task.id}
@@ -33,6 +38,7 @@ const TaskList = ({ tasks, onToggle, onDelete, onEdit, setTasks }) => {
           onDragStart={() => handleDragStart(index)}
           onDragEnter={() => handleDragEnter(index)}
           onDragEnd={handleDragEnd}
+          style={{ cursor: 'grab' }}
         >
           <TaskItem task={task} onToggle={onToggle} onDelete={onDelete} onEdit={onEdit} />
         </div>

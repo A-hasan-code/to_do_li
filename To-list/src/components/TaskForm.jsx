@@ -1,4 +1,5 @@
-import { Box, Button, TextField } from '@mui/material';
+// src/components/TaskForm.jsx
+import { Box, Button, TextField, Paper } from '@mui/material';
 import { useState, useEffect } from 'react';
 
 const TaskForm = ({ onSave, taskToEdit, clearEdit }) => {
@@ -9,6 +10,9 @@ const TaskForm = ({ onSave, taskToEdit, clearEdit }) => {
     if (taskToEdit) {
       setTitle(taskToEdit.title);
       setDescription(taskToEdit.description);
+    } else {
+      setTitle('');
+      setDescription('');
     }
   }, [taskToEdit]);
 
@@ -22,11 +26,41 @@ const TaskForm = ({ onSave, taskToEdit, clearEdit }) => {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', gap: 2, flexDirection: 'column', mb: 3 }}>
-      <TextField label="Title" value={title} onChange={(e) => setTitle(e.target.value)} required />
-      <TextField label="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
-      <Button type="submit" variant="contained">{taskToEdit ? 'Update Task' : 'Add Task'}</Button>
-    </Box>
+    <Paper
+      elevation={1}
+      sx={{ mb: 3, p: 2, borderRadius: 2, backgroundColor: 'background.default' }}
+    >
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2
+        }}
+      >
+        <TextField
+          label="Task Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          fullWidth
+          required
+          variant="outlined"
+        />
+        <TextField
+          label="Description (optional)"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          fullWidth
+          multiline
+          rows={2}
+          variant="outlined"
+        />
+        <Button type="submit" variant="contained" color="primary" size="large">
+          {taskToEdit ? 'Update Task' : 'Add Task'}
+        </Button>
+      </Box>
+    </Paper>
   );
 };
 
